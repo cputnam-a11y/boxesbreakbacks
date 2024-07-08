@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "boxesbreakbacks",
+	"version": "${version}",
+	"name": "BoxesBreakBacks",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/boxesbreakbacks/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"boxesbreakbacks.BoxesBreakBacks"
+		],
+		"client": [
+			"boxesbreakbacks.BoxesBreakBacksClient"
+		],
+		"fabric-datagen": [
+			"boxesbreakbacks.BoxesBreakBacksDataGenerator"
+		]
+	},
+	"mixins": [
+		"boxesbreakbacks.mixins.json",
+		{
+			"config": "boxesbreakbacks.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.6",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
