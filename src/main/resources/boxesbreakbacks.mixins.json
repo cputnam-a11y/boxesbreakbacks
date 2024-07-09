@@ -3,8 +3,7 @@
   "package": "boxesbreakbacks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ExampleMixin",
-    "LivingEntityMixin"
+    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

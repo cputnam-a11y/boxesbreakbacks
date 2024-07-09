@@ -50,7 +50,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 Items.RED_SHULKER_BOX,
                 Items.BLACK_SHULKER_BOX
             );
-        var trinketTagBuilder = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("trinkets", "chest/back")));
+        var trinketTagBuilder = getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("accessories", "back")));
         var boxTagBuilder = getOrCreateTagBuilder(ModTags.BOXES);
         var shulkerTagBuilder = getOrCreateTagBuilder(ModTags.SHULKERS);
         for (Item shulker : Shulkers) {

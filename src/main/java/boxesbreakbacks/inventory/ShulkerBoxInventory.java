@@ -1,7 +1,7 @@
 package boxesbreakbacks.inventory;
 
-import dev.emi.trinkets.api.TrinketComponent;
-import dev.emi.trinkets.api.TrinketsApi;
+//import dev.emi.trinkets.api.TrinketComponent;
+//import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.component.type.ContainerLootComponent;
@@ -96,11 +96,12 @@ public class ShulkerBoxInventory implements Inventory {
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        Optional<TrinketComponent> trinkOption = TrinketsApi.getTrinketComponent(player);
-        if (trinkOption.isEmpty())
-            return false;
-        TrinketComponent trinks = trinkOption.get();
-        return trinks.isEquipped((s) -> s == shulkerBox) || player.getInventory().contains(shulkerBox);
+//        Optional<TrinketComponent> trinkOption = TrinketsApi.getTrinketComponent(player);
+//        if (trinkOption.isEmpty())
+//            return false;
+//        TrinketComponent trinks = trinkOption.get();
+//        return trinks.isEquipped((s) -> s == shulkerBox) || player.getInventory().contains(shulkerBox);
+        return true;
     }
 
     @Override
