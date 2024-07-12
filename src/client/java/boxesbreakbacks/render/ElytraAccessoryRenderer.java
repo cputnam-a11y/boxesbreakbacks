@@ -28,6 +28,7 @@ public class ElytraAccessoryRenderer implements AccessoryRenderer {
     public ElytraAccessoryRenderer() {
         this.elytra = new ElytraEntityModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(EntityModelLayers.ELYTRA));
     }
+    @SuppressWarnings("unchecked")
     @Override
     public <M extends LivingEntity> void render(ItemStack stack, SlotReference reference, MatrixStack matrices, EntityModel<M> model, VertexConsumerProvider multiBufferSource, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         LivingEntity livingEntity = reference.entity();
@@ -49,7 +50,6 @@ public class ElytraAccessoryRenderer implements AccessoryRenderer {
 
         matrices.push();
         matrices.translate(0.0F, 0.0F, 0.125F);
-        //noinspection unchecked
         model.copyStateTo((EntityModel<M>) this.elytra);
         this.elytra.setAngles(livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, headPitch);
         VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getArmorCutoutNoCull(identifier), stack.hasGlint());

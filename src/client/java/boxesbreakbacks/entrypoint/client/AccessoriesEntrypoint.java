@@ -1,4 +1,4 @@
-package boxesbreakbacks.entrypoint;
+package boxesbreakbacks.entrypoint.client;
 
 import boxesbreakbacks.network.OpenBackBoxPayload;
 import boxesbreakbacks.render.ElytraAccessoryRenderer;

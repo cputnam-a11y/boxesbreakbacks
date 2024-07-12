@@ -1,6 +1,6 @@
 package boxesbreakbacks;
 
-import boxesbreakbacks.entrypoint.AccessoriesEntrypoint;
+import boxesbreakbacks.entrypoint.client.AccessoriesEntrypoint;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 

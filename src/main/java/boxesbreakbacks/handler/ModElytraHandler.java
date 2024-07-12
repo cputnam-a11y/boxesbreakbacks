@@ -3,6 +3,7 @@ package boxesbreakbacks.handler;
 import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ModElytraHandler {
     static {
         EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
+            if (entity.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.ELYTRA))
+                return false;
             AccessoriesCapability cap = AccessoriesCapability.get(entity);
             if (cap == null)
                 return false;
@@ -29,7 +32,6 @@ public class ModElytraHandler {
 
                     if (!entity.getWorld().isClient && nextRoll % 10 == 0) {
                         if ((nextRoll / 10) % 2 == 0) {
-                            // damage(int amount, ServerWorld world, @Nullable ServerPlayerEntity player, Consumer<Item> breakCallback)
                             elytraStack.damage(1, (ServerWorld) entity.getWorld(), (entity instanceof ServerPlayerEntity) ? (ServerPlayerEntity) entity : null, (item) -> {
                                 slotReference.reference().setStack(ItemStack.EMPTY);
                             });
@@ -37,7 +39,6 @@ public class ModElytraHandler {
                         entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
                     }
                 }
-
                 return true;
             }
             return false;

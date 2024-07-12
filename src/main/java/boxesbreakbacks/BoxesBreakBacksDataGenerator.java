@@ -1,5 +1,6 @@
 package boxesbreakbacks;
 
+import boxesbreakbacks.datagen.ModAccessorySlotProvider;
 import boxesbreakbacks.datagen.ModEnglishLangProvider;
 import boxesbreakbacks.datagen.ModItemTagProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -11,5 +12,6 @@ public class BoxesBreakBacksDataGenerator implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModEnglishLangProvider::new);
+		pack.addProvider(ModAccessorySlotProvider::new);
 	}
 }
