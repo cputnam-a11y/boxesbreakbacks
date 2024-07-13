@@ -3,7 +3,9 @@
   "package": "boxesbreakbacks.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ExampleMixin"
+    "EntityTrackerMixin",
+    "ServerChunkLoadingManagerMixin",
+    "ServerPlayNetworkingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

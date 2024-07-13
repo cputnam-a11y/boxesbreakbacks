@@ -2,6 +2,12 @@ package boxesbreakbacks.inventory;
 
 //import dev.emi.trinkets.api.TrinketComponent;
 //import dev.emi.trinkets.api.TrinketsApi;
+import boxesbreakbacks.component.ModDataCompontentTypes;
+import boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent;
+import boxesbreakbacks.mixininterface.PayloadCompatibleServerChunkLoadingManager;
+import boxesbreakbacks.network.ShulkerStateChangePayload;
+import io.wispforest.accessories.api.AccessoriesAPI;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.component.type.ContainerLootComponent;
@@ -22,6 +28,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class ShulkerBoxInventory implements Inventory {
@@ -101,7 +108,12 @@ public class ShulkerBoxInventory implements Inventory {
 //            return false;
 //        TrinketComponent trinks = trinkOption.get();
 //        return trinks.isEquipped((s) -> s == shulkerBox) || player.getInventory().contains(shulkerBox);
-        return true;
+        var list = player.accessoriesCapability().getEquipped(shulkerBox.getItem());
+        for (var item : list) {
+            if (item.stack() == shulkerBox)
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -121,10 +133,37 @@ public class ShulkerBoxInventory implements Inventory {
     @Override
     public void onOpen(PlayerEntity player) {
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), getOpenSound(), SoundCategory.BLOCKS, 0.5F, getVariatedPitch(player.getWorld()));
+        if (!player.getWorld().isClient)
+            ((PayloadCompatibleServerChunkLoadingManager)((ServerWorld)player.getWorld())
+                    .getChunkManager()
+                    .chunkLoadingManager)
+                    .boxesBreakBacks$sendToNearbyPlayers(
+                            (ServerPlayerEntity) player,
+                            new ShulkerStateChangePayload(
+                                    player,
+                                    ShulkerAccessoryAnimationDataComponent.AnimationStage.OPENING,
+                                    Objects.requireNonNull(player.accessoriesCapability()).getEquipped(s -> s == shulkerBox).getFirst().reference().slot()
+                            )
+                    );
     }
 
     @Override
     public void onClose(PlayerEntity player) {
+        ShulkerAccessoryAnimationDataComponent data = shulkerBox.getOrDefault(ModDataCompontentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, new ShulkerAccessoryAnimationDataComponent(ShulkerBoxBlock.getColor(shulkerBox.getItem())));
+        data.setAnimationStage(ShulkerAccessoryAnimationDataComponent.AnimationStage.CLOSING);
+        shulkerBox.set(ModDataCompontentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, data);
+        if (!player.getWorld().isClient)
+            ((PayloadCompatibleServerChunkLoadingManager)((ServerWorld)player.getWorld())
+                    .getChunkManager()
+                    .chunkLoadingManager)
+                    .boxesBreakBacks$sendToNearbyPlayers(
+                            (ServerPlayerEntity) player,
+                            new ShulkerStateChangePayload(
+                                    player,
+                                    ShulkerAccessoryAnimationDataComponent.AnimationStage.CLOSING,
+                                    Objects.requireNonNull(player.accessoriesCapability()).getEquipped(s -> s == shulkerBox).getFirst().reference().slot()
+                            )
+                    );
         markDirty();
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), getCloseSound(), SoundCategory.BLOCKS, 0.5F, getVariatedPitch(player.getWorld()));
     }

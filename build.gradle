@@ -29,6 +29,7 @@ repositories {
 }
 
 loom {
+	accessWidenerPath = file("src/main/resources/boxesbreakbacks.accesswidener")
     splitEnvironmentSourceSets()
 
 	mods {
