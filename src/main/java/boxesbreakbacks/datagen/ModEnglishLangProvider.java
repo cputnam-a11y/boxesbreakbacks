@@ -20,6 +20,7 @@ public class ModEnglishLangProvider extends FabricLanguageProvider {
      * @param registryLookup
      * @param translationBuilder
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModTags.BOXES, "Boxes");

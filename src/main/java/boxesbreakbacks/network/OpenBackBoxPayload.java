@@ -7,16 +7,12 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public class OpenBackBoxPayload implements CustomPayload {
-    public static Id<OpenBackBoxPayload> ID = new Id<>(new Identifier(BoxesBreakBacks.MOD_ID, "open_back_box"));
-    public static PacketCodec<PacketByteBuf, OpenBackBoxPayload> CODEC = PacketCodec.ofStatic(OpenBackBoxPayload::write, OpenBackBoxPayload::new);
+    public static final Id<OpenBackBoxPayload> ID = new Id<>(Identifier.of(BoxesBreakBacks.MOD_ID, "open_back_box"));
+    public static final PacketCodec<PacketByteBuf, OpenBackBoxPayload> CODEC = PacketCodec.unit(new OpenBackBoxPayload());
     public OpenBackBoxPayload() {
-    }
-    OpenBackBoxPayload(PacketByteBuf buf) {
     }
     @Override
     public Id<OpenBackBoxPayload> getId() {
         return ID;
-    }
-    static void write(PacketByteBuf buf, OpenBackBoxPayload payload) {
     }
 }
