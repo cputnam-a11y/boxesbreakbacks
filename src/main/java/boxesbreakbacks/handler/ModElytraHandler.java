@@ -32,9 +32,7 @@ public class ModElytraHandler {
 
                     if (!entity.getWorld().isClient && nextRoll % 10 == 0) {
                         if ((nextRoll / 10) % 2 == 0) {
-                            elytraStack.damage(1, (ServerWorld) entity.getWorld(), (entity instanceof ServerPlayerEntity) ? (ServerPlayerEntity) entity : null, (item) -> {
-                                slotReference.reference().setStack(ItemStack.EMPTY);
-                            });
+                            elytraStack.damage(1, (ServerWorld) entity.getWorld(), (entity instanceof ServerPlayerEntity) ? (ServerPlayerEntity) entity : null, (item) -> slotReference.reference().setStack(ItemStack.EMPTY));
                         }
                         entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
                     }
@@ -44,5 +42,6 @@ public class ModElytraHandler {
             return false;
         });
     }
+    @SuppressWarnings("EmptyMethod")
     public static void init() {}
 }

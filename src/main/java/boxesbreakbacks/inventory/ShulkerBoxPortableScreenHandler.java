@@ -1,9 +1,8 @@
 package boxesbreakbacks.inventory;
 
-import boxesbreakbacks.component.ModDataCompontentTypes;
+import boxesbreakbacks.component.ModDataComponentTypes;
 import boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -12,14 +11,12 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
-import java.util.Objects;
-
 public class ShulkerBoxPortableScreenHandler extends ShulkerBoxScreenHandler {
-    protected ServerPlayerEntity player;
-    protected ItemStack shulkerBox;
+    @SuppressWarnings("unused")
+    protected final ServerPlayerEntity  player;
+    protected final ItemStack shulkerBox;
     public ShulkerBoxPortableScreenHandler(int id, PlayerInventory inventory, ServerPlayerEntity player, ItemStack shulkerBox) {
         super(id, inventory, new ShulkerBoxInventory(player, shulkerBox, 3 * 9));
         this.player = player;
@@ -41,7 +38,7 @@ public class ShulkerBoxPortableScreenHandler extends ShulkerBoxScreenHandler {
     }
     public static void open(ServerPlayerEntity player, ItemStack shulkerBox) {
         shulkerBox.apply(
-                ModDataCompontentTypes.SHULKER_ACCESSORY_ANIMATION_DATA,
+                ModDataComponentTypes.SHULKER_ACCESSORY_ANIMATION_DATA,
                 new ShulkerAccessoryAnimationDataComponent(
                         ShulkerBoxBlock.getColor(
                                 shulkerBox.getItem()

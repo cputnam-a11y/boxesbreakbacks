@@ -2,7 +2,7 @@ package boxesbreakbacks.entrypoint;
 
 import boxesbreakbacks.BoxesBreakBacksConstants;
 import boxesbreakbacks.accessory.ShulkerAccessory;
-import boxesbreakbacks.component.ModDataCompontentTypes;
+import boxesbreakbacks.component.ModDataComponentTypes;
 import boxesbreakbacks.handler.ModElytraHandler;
 import boxesbreakbacks.network.ModNetworkHandler;
 import io.wispforest.accessories.api.AccessoriesAPI;
@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 
 public class AccessoriesEntrypoint {
     public static void init() {
-        ModDataCompontentTypes.init();
+        ModDataComponentTypes.init();
         ModNetworkHandler.init();
         ModElytraHandler.init();
         for (Item item : BoxesBreakBacksConstants.SHULKERS)

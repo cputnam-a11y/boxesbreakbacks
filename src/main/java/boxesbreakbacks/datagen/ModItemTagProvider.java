@@ -21,6 +21,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
      * @param output            The {@link FabricDataOutput} instance
      * @param completableFuture
      */
+    @SuppressWarnings("JavadocDeclaration")
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
@@ -30,6 +31,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
      *
      * @param wrapperLookup
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         List<Item> Shulkers = BoxesBreakBacksConstants.SHULKERS;

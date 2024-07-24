@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EntityTrackerMixin",
-    "ServerChunkLoadingManagerMixin",
-    "ServerPlayNetworkingMixin"
+    "ServerChunkLoadingManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

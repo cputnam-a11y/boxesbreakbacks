@@ -1,12 +1,9 @@
 package boxesbreakbacks.inventory;
 
-//import dev.emi.trinkets.api.TrinketComponent;
-//import dev.emi.trinkets.api.TrinketsApi;
-import boxesbreakbacks.component.ModDataCompontentTypes;
+import boxesbreakbacks.component.ModDataComponentTypes;
 import boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent;
 import boxesbreakbacks.mixininterface.PayloadCompatibleServerChunkLoadingManager;
 import boxesbreakbacks.network.ShulkerStateChangePayload;
-import io.wispforest.accessories.api.AccessoriesAPI;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
@@ -29,13 +26,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class ShulkerBoxInventory implements Inventory {
-    protected DefaultedList<ItemStack> items;
-    protected ItemStack shulkerBox;
-    protected int invSize;
-    ShulkerBoxInventory(ServerPlayerEntity player, ItemStack shulkerBox, int inventorySize) {
+    protected final DefaultedList<ItemStack> items;
+    protected final ItemStack shulkerBox;
+    protected final int invSize;
+    ShulkerBoxInventory(ServerPlayerEntity player, ItemStack shulkerBox, @SuppressWarnings("SameParameterValue") int inventorySize) {
         this.shulkerBox = shulkerBox;
         this.invSize = inventorySize;
         this.items = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
@@ -103,12 +99,7 @@ public class ShulkerBoxInventory implements Inventory {
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-//        Optional<TrinketComponent> trinkOption = TrinketsApi.getTrinketComponent(player);
-//        if (trinkOption.isEmpty())
-//            return false;
-//        TrinketComponent trinks = trinkOption.get();
-//        return trinks.isEquipped((s) -> s == shulkerBox) || player.getInventory().contains(shulkerBox);
-        var list = player.accessoriesCapability().getEquipped(shulkerBox.getItem());
+        var list = Objects.requireNonNull(player.accessoriesCapability()).getEquipped(shulkerBox.getItem());
         for (var item : list) {
             if (item.stack() == shulkerBox)
                 return true;
@@ -130,6 +121,7 @@ public class ShulkerBoxInventory implements Inventory {
         return 64;
     }
 
+    @SuppressWarnings("RedundantCast")
     @Override
     public void onOpen(PlayerEntity player) {
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), getOpenSound(), SoundCategory.BLOCKS, 0.5F, getVariatedPitch(player.getWorld()));
@@ -147,11 +139,12 @@ public class ShulkerBoxInventory implements Inventory {
                     );
     }
 
+    @SuppressWarnings("RedundantCast")
     @Override
     public void onClose(PlayerEntity player) {
-        ShulkerAccessoryAnimationDataComponent data = shulkerBox.getOrDefault(ModDataCompontentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, new ShulkerAccessoryAnimationDataComponent(ShulkerBoxBlock.getColor(shulkerBox.getItem())));
+        ShulkerAccessoryAnimationDataComponent data = shulkerBox.getOrDefault(ModDataComponentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, new ShulkerAccessoryAnimationDataComponent(ShulkerBoxBlock.getColor(shulkerBox.getItem())));
         data.setAnimationStage(ShulkerAccessoryAnimationDataComponent.AnimationStage.CLOSING);
-        shulkerBox.set(ModDataCompontentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, data);
+        shulkerBox.set(ModDataComponentTypes.SHULKER_ACCESSORY_ANIMATION_DATA, data);
         if (!player.getWorld().isClient)
             ((PayloadCompatibleServerChunkLoadingManager)((ServerWorld)player.getWorld())
                     .getChunkManager()
@@ -167,10 +160,12 @@ public class ShulkerBoxInventory implements Inventory {
         markDirty();
         player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), getCloseSound(), SoundCategory.BLOCKS, 0.5F, getVariatedPitch(player.getWorld()));
     }
+    @SuppressWarnings("SameReturnValue")
     protected SoundEvent getOpenSound() {
         return SoundEvents.BLOCK_SHULKER_BOX_OPEN;
     }
 
+    @SuppressWarnings("SameReturnValue")
     protected SoundEvent getCloseSound() {
         return SoundEvents.BLOCK_SHULKER_BOX_CLOSE;
     }

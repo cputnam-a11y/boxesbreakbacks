@@ -13,8 +13,6 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.Items;
 
-import java.util.List;
-
 public class AccessoriesEntrypoint {
     public static void init() {
         ModNetworkHandler.init();

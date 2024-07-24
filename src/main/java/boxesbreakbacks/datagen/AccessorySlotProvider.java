@@ -1,7 +1,6 @@
 package boxesbreakbacks.datagen;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.DataOutput;
@@ -11,12 +10,12 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public abstract class AccessorySlotProvider implements DataProvider {
     protected final FabricDataOutput dataOutput;
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
@@ -73,7 +72,8 @@ public abstract class AccessorySlotProvider implements DataProvider {
     public String getName() {
         return "Accessories Slot Generator";
     }
-    public static enum OperationType {
+    @SuppressWarnings("unused")
+    public enum OperationType {
         ADD("add"),
         REMOVE("remove"),
         SET("set");
@@ -82,7 +82,7 @@ public abstract class AccessorySlotProvider implements DataProvider {
             this.text = text;
         }
     }
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "unused"})
     static class Builder {
         private final String slotName;
         private Optional<Boolean> replace = Optional.empty();

@@ -6,7 +6,7 @@ import net.minecraft.item.Items;
 import java.util.List;
 
 public class BoxesBreakBacksConstants {
-    public static List<Item> SHULKERS = List.of(
+    public static final List<Item> SHULKERS = List.of(
             Items.SHULKER_BOX,
             Items.WHITE_SHULKER_BOX,
             Items.ORANGE_SHULKER_BOX,

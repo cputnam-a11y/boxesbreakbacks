@@ -1,26 +1,19 @@
 package boxesbreakbacks.component;
 
-import boxesbreakbacks.mixininterface.PayloadCompatibleServerChunkLoadingManager;
-import boxesbreakbacks.network.ShulkerStateChangePayload;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class ShulkerAccessoryAnimationDataComponent {
     private static final Codec<DyeColor> DYE_COLOR_CODEC =
             Codec.INT.xmap(
@@ -34,21 +27,21 @@ public class ShulkerAccessoryAnimationDataComponent {
                     Codec.FLOAT.fieldOf("prevAnimationProgress").forGetter(ShulkerAccessoryAnimationDataComponent::getPrevAnimationProgress),
                     Codec.FLOAT.fieldOf("animationProgress").forGetter(ShulkerAccessoryAnimationDataComponent::getAnimationProgress)
             ).apply(instance, ShulkerAccessoryAnimationDataComponent::new));
-    static PacketCodec<PacketByteBuf, ShulkerAccessoryAnimationDataComponent> PACKET_CODEC = PacketCodec.ofStatic(ShulkerAccessoryAnimationDataComponent::toBuf, ShulkerAccessoryAnimationDataComponent::fromBuf);
+    static final PacketCodec<PacketByteBuf, ShulkerAccessoryAnimationDataComponent> PACKET_CODEC = PacketCodec.ofStatic(ShulkerAccessoryAnimationDataComponent::toBuf, ShulkerAccessoryAnimationDataComponent::fromBuf);
     private AnimationStage animationStage;
     private float animationProgress;
     private float prevAnimationProgress;
     @Nullable
     private final DyeColor cachedColor;
     // codec constructor
-    private ShulkerAccessoryAnimationDataComponent(DyeColor color, AnimationStage animationStage, float prevAnimationProgress, float animationProgress) {
+    private ShulkerAccessoryAnimationDataComponent(@Nullable DyeColor color, AnimationStage animationStage, float prevAnimationProgress, float animationProgress) {
         cachedColor = color;
         this.animationStage = AnimationStage.CLOSED;
         this.animationProgress = 0;
         this.prevAnimationProgress = 0;
     }
     // public constructor
-    public ShulkerAccessoryAnimationDataComponent(DyeColor color) {
+    public ShulkerAccessoryAnimationDataComponent(@Nullable DyeColor color) {
         cachedColor = color;
         animationStage = AnimationStage.CLOSED;
         animationProgress = 0;
@@ -126,35 +119,6 @@ public class ShulkerAccessoryAnimationDataComponent {
                 }
         }
 
-    }
-    public void updateAnimation(ServerPlayerEntity player, ServerWorld world, int slotNumber) {
-        AnimationStage previousStage = this.animationStage;
-        this.prevAnimationProgress = this.animationProgress;
-        switch (this.animationStage.ordinal()) {
-            case 0:
-                this.animationProgress = 0.0F;
-                break;
-            case 1:
-                this.animationProgress += 0.1F;
-
-                if (this.animationProgress >= 1.0F) {
-                    this.animationStage = AnimationStage.OPENED;
-                    this.animationProgress = 1.0F;
-                }
-                break;
-            case 2:
-                this.animationProgress = 1.0F;
-                break;
-            case 3:
-                this.animationProgress -= 0.1F;
-
-                if (this.animationProgress <= 0.0F) {
-                    this.animationStage = AnimationStage.CLOSED;
-                    this.animationProgress = 0.0F;
-                }
-        }
-//        if (previousStage != this.animationStage && (this.animationStage != AnimationStage.CLOSED || this.animationStage != AnimationStage.OPENED))
-//            ((PayloadCompatibleServerChunkLoadingManager)world.getChunkManager().chunkLoadingManager).boxesBreakBacks$sendToNearbyPlayers(player, new ShulkerStateChangePayload(player, animationStage, slotNumber));
     }
     static ShulkerAccessoryAnimationDataComponent fromBuf(PacketByteBuf buf) {
         ShulkerAccessoryAnimationDataComponent data;

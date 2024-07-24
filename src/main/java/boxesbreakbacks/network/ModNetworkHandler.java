@@ -1,15 +1,11 @@
 package boxesbreakbacks.network;
 
-import boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent;
 import boxesbreakbacks.inventory.ShulkerBoxPortableScreenHandler;
-import boxesbreakbacks.mixininterface.PayloadCompatibleServerChunkLoadingManager;
 import boxesbreakbacks.tag.ModTags;
 import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.server.world.ServerWorld;
-import static boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent.AnimationStage;
 
 import java.util.List;
 
@@ -29,5 +25,6 @@ public class ModNetworkHandler {
             ShulkerBoxPortableScreenHandler.open(context.player(), slotReferences.getFirst().stack());
         });
     }
+    @SuppressWarnings("EmptyMethod")
     public static void init() {}
 }

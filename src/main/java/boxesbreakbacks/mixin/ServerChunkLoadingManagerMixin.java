@@ -15,6 +15,7 @@ public class ServerChunkLoadingManagerMixin implements PayloadCompatibleServerCh
     @Final
     @Shadow
     private Int2ObjectMap<ServerChunkLoadingManager.EntityTracker> entityTrackers;
+    @SuppressWarnings("RedundantCast")
     public <T extends CustomPayload> void boxesBreakBacks$sendToNearbyPlayers(ServerPlayerEntity player, T payload) {
         ((PayloadCompatibleEntityTracker) entityTrackers.get(player.getId())).boxesBreakBacks$sendToNearbyPlayers(payload);
     }

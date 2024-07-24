@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.Iterator;
 import java.util.Set;
 
 @Mixin(ServerChunkLoadingManager.EntityTracker.class)
@@ -25,7 +24,7 @@ public class EntityTrackerMixin implements PayloadCompatibleEntityTracker {
     private Set<PlayerAssociatedNetworkHandler> listeners;
     @Unique
     public <T extends CustomPayload> void boxesBreakBacks$sendToOtherNearbyPlayers(T payload) {
-        Iterator<PlayerAssociatedNetworkHandler> var2 = this.listeners.iterator();
+        this.listeners.iterator();
         for (var handler : this.listeners)
             ServerPlayNetworking.send(handler.getPlayer(), payload);
     }

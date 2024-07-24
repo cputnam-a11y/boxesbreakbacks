@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.UnaryOperator;
 
-public class ModDataCompontentTypes {
+public class ModDataComponentTypes {
     public static final ComponentType<ShulkerAccessoryAnimationDataComponent> SHULKER_ACCESSORY_ANIMATION_DATA =
             register(
                     Identifier.of(BoxesBreakBacks.MOD_ID, "shulker_animation_data"),
@@ -22,6 +22,7 @@ public class ModDataCompontentTypes {
                                     )
 
             );
+    @SuppressWarnings("EmptyMethod")
     public static void init() {
 
     }

@@ -1,20 +1,18 @@
 package boxesbreakbacks.network;
 
 import boxesbreakbacks.BoxesBreakBacks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import static boxesbreakbacks.component.ShulkerAccessoryAnimationDataComponent.AnimationStage;
 
 public class ShulkerStateChangePayload implements CustomPayload {
-    public static Id<ShulkerStateChangePayload> ID = new Id<>(Identifier.of(BoxesBreakBacks.MOD_ID, "change_shulker_state"));
-    public static PacketCodec<PacketByteBuf, ShulkerStateChangePayload> CODEC = PacketCodec.ofStatic(ShulkerStateChangePayload::write, ShulkerStateChangePayload::new);
+    public static final Id<ShulkerStateChangePayload> ID = new Id<>(Identifier.of(BoxesBreakBacks.MOD_ID, "change_shulker_state"));
+    public static final PacketCodec<PacketByteBuf, ShulkerStateChangePayload> CODEC = PacketCodec.ofStatic(ShulkerStateChangePayload::write, ShulkerStateChangePayload::new);
     private final int entityId;
     private final AnimationStage animationStage;
     private final int slotNumber;
