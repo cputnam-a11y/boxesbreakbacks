@@ -32,13 +32,6 @@
 			"environment": "client"
 		}
 	],
-	"custom": {
-		"loom:injected_interfaces": {
-			"net/minecraft/class_3898\u0024class_3208": ["boxesbreakbacks/mixininterface/PayloadCompatibleEntityTracker"],
-			"net/minecraft/class_3898": ["boxesbreakbacks/mixininterface/PayloadCompatibleServerChunkLoadingManager"]
-		}
-	},
-	"accessWidener": "boxesbreakbacks.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.21",
